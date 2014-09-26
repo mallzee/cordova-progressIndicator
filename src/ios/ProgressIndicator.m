@@ -11,21 +11,21 @@
  */
 
 - (void)showSimple:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     //UIColor* color = [command.arguments objectAtIndex:1];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeIndeterminate;
-    
+
     // Check if dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     // Cordova success
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -38,28 +38,28 @@
  */
 
 - (void)showSimpleWithLabel:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     NSString* text = [command.arguments objectAtIndex:1];
     //UIColor* color = [command.arguments objectAtIndex:2];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeIndeterminate;
     self.progressIndicator.labelText = text;
     //self.progressIndicator.color =  [UIColor color:color];
     //HUD.color = [UIColor colorWithRed:0.23 green:0.50 blue:0.82 alpha:0.90];
-    
+
     // Check if dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    
+
 }
 
 
@@ -73,21 +73,21 @@
     NSString* text = [command.arguments objectAtIndex:1];
     NSString* detail = [command.arguments objectAtIndex:2];
     //UIColor* color = [command.arguments objectAtIndex:3];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeIndeterminate;
     self.progressIndicator.labelText = text;
     self.progressIndicator.detailsLabelText = detail;
     //self.progressIndicator.color =  [UIColor color:color];
     //HUD.color = [UIColor colorWithRed:0.23 green:0.50 blue:0.82 alpha:0.90];
-    
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -100,21 +100,21 @@
  */
 
 - (void)showText:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     NSString* text = [command.arguments objectAtIndex:1];
     NSString* position = [command.arguments objectAtIndex:2];
     //UIColor* color = [command.arguments objectAtIndex:2];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeText;
     self.progressIndicator.labelText = text;
 	self.progressIndicator.margin = 10.f;
-    
-    
+
+
     if ([position isEqualToString:@"top"]) {
         self.progressIndicator.yOffset = -150.f;
     }
@@ -126,16 +126,16 @@
 		[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 		return;
     }
-	
-    
+
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    
+
 }
 
 
@@ -146,26 +146,26 @@
  */
 
 -(void)showDeterminate:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     int increment = [[command.arguments objectAtIndex:1] intValue];
     NSNumber* incrementValue = @(increment);
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeDeterminate;
-    
-    
+
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     // Load Progress bar with ::incrementValue
     [self.progressIndicator showWhileExecuting:@selector(progressTask:) onTarget:self withObject:incrementValue animated:YES];
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -177,27 +177,27 @@
  */
 
 -(void)showDeterminateWithLabel:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     int increment = [[command.arguments objectAtIndex:1] intValue];
     NSNumber* incrementValue = @(increment);
     NSString* text = [command.arguments objectAtIndex:2];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeDeterminate;
     self.progressIndicator.labelText = text;
-    
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     // Load Progress bar with ::incrementValue
     [self.progressIndicator showWhileExecuting:@selector(progressTask:) onTarget:self withObject:incrementValue animated:YES];
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -209,25 +209,25 @@
  */
 
 - (void)showDeterminateAnnular:(CDVInvokedUrlCommand *)command  {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     int increment = [[command.arguments objectAtIndex:1] intValue];
     NSNumber* incrementValue = @(increment);
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeAnnularDeterminate;
-    
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     // Load Progress bar with ::incrementValue
     [self.progressIndicator showWhileExecuting:@selector(progressTask:) onTarget:self withObject:incrementValue animated:YES];
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -238,27 +238,27 @@
  * DETERMINATE ANNULAR with LABEL
  */
 - (void)showDeterminateAnnularWithLabel:(CDVInvokedUrlCommand *)command  {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     int increment = [[command.arguments objectAtIndex:1] intValue];
     NSNumber* incrementValue = @(increment);
     NSString* text = [command.arguments objectAtIndex:2];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeAnnularDeterminate;
     self.progressIndicator.labelText = text;
-    
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     // Load Progress bar with ::incrementValue
     [self.progressIndicator showWhileExecuting:@selector(progressTask:) onTarget:self withObject:incrementValue animated:YES];
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -270,26 +270,26 @@
  */
 
 - (void)showDeterminateBar:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     int increment = [[command.arguments objectAtIndex:1] intValue];
     NSNumber* incrementValue = @(increment);
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeDeterminateHorizontalBar;
-    
-    
+
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     // Load Progress bar with ::incrementValue
     [self.progressIndicator showWhileExecuting:@selector(progressTask:) onTarget:self withObject:incrementValue animated:YES];
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -301,28 +301,28 @@
  */
 
 - (void)showDeterminateBarWithLabel:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     int increment = [[command.arguments objectAtIndex:1] intValue];
     NSNumber* incrementValue = @(increment);
     NSString* text = [command.arguments objectAtIndex:2];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeDeterminateHorizontalBar;
     self.progressIndicator.labelText = text;
-    
-    
+
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     // Load Progress bar with ::incrementValue
     [self.progressIndicator showWhileExecuting:@selector(progressTask:) onTarget:self withObject:incrementValue animated:YES];
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -333,27 +333,27 @@
  */
 
 -(void)showSuccess:(CDVInvokedUrlCommand *)command {
-    
+
     // obtain commands
     bool dim = [[command.arguments objectAtIndex:0] boolValue];
     NSString* text = [command.arguments objectAtIndex:1];
-    
+
     // initialize indicator with options, text, detail
     self.progressIndicator = nil;
-    self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+    self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     self.progressIndicator.mode = MBProgressHUDModeCustomView;
     self.progressIndicator.labelText = text;
-    
+
     // custom success image from bundle
     NSString *image = @"ProgressIndicator.bundle/37x-Checkmark.png";
     self.progressIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
-    
-    
+
+
     // Check for dim : true ? false
     if (dim == true) {
         self.progressIndicator.dimBackground = YES;
     }
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -362,34 +362,34 @@
 
 /**
  * MULTIPLE STEPS using array
- 
- 
+
+
  - (void)showMultiple:(CDVInvokedUrlCommand*)command {
- 
+
  // obtain commands
  bool dim = [[command.arguments objectAtIndex:0] boolValue];
  NSArray = [commands.arguments objectAtIndex:1];
- 
- 
+
+
  // initialize indicator with options, text, detail
  self.progressIndicator = nil;
- self.progressIndicator = [MBProgressHUD showHUDAddedTo:self.webView.superview animated:YES];
+ self.progressIndicator = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
  self.progressIndicator.mode = MBProgressHUDModeCustomView;
  self.progressIndicator.labelText = text;
- 
+
  // custom success image from bundle
  NSString *image = @"progressIndicator.bundle/37x-Checkmark.png";
  self.progressIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
- 
- 
+
+
  // Check for dim : true ? false
  if (dim == true) {
  self.progressIndicator.dimBackground = YES;
  }
- 
+
  CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
- 
+
  }
  */
 
@@ -416,15 +416,15 @@
  */
 
 - (void)progressTask:(NSNumber *)increment{
-    
+
     // get increment value
     int _increment = [increment intValue];
-    
+
     float progress = 0.0f;
     while (progress < 1.0f) {
         progress += 0.01f;
         self.progressIndicator.progress = progress;
-        
+
         // increment in microseconds (100000mms = 1s)
         usleep(_increment);
     }
